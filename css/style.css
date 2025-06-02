@@ -1,5 +1,29 @@
-/* ...existing code... */
 
+#root, .d-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Centrado y estilo para el título y la descripción */
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  font-weight: bold;
+  color: #0056b3;
+}
+
+p {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  color: #333;
+  font-size: 1.1em;
+}
+
+/* Estilo para las tarjetas de presentación */
 .flip-card {
   background-color: transparent;
   width: 220px;
@@ -49,10 +73,65 @@
   color: #fff;
 }
 
-/* Opcional: imagen redonda */
+/*Imagen Redonda*/
 .flip-card-front img {
   border-radius: 50%;
   width: 100px;
   height: 100px;
   margin-top: 20px;
+}
+
+/* Responsive */
+
+/* Para pantallas menores o iguales a 575px */
+@media (max-width: 575px) {
+  .flip-card {
+    width: 90vw;
+    height: 250px;
+    margin: 5px auto;
+    display: block;
+  }
+  .flip-card-front img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Para pantallas entre 576px y 767px */
+@media (min-width: 576px) and (max-width: 767px) {
+  .flip-card {
+    width: 45vw;
+    height: 270px;
+    margin: 8px;
+  }
+  .flip-card-front img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Para pantallas entre 768px y 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .flip-card {
+    width: 30vw;
+    height: 290px;
+    margin: 10px;
+  }
+  .flip-card-front img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* Para pantallas mayores o iguales a 992px */
+@media (min-width: 992px) {
+  .flip-card {
+    width: 220px;
+    height: 300px;
+    margin: 10px;
+  }
+  .flip-card-front img {
+    width: 100px;
+    height: 100px;
+  }
 }
