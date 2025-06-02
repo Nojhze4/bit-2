@@ -34,7 +34,7 @@ fetch("file.json")
       }
       proyectosHTML += "</ul>";
 
-      cards += `
+     cards += `
 <div class="flip-card">
   <div class="flip-card-inner">
     <div class="flip-card-front">
@@ -42,7 +42,6 @@ fetch("file.json")
       <h5 class="card-title">${student.student}</h5>
     </div>
     <div class="flip-card-back">
-      <h5>${student.student}</h5>
       <p><strong>Intensidad:</strong> ${student.intensity || "N/A"}</p>
       <p><strong>Código:</strong> ${student.code || "N/A"}</p>
       ${githubLink}
