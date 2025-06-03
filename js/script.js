@@ -55,7 +55,7 @@ function mostrarTarjetas(estudiantes) {
 fetch("file.json")
   .then((respuesta) => {
     if (!respuesta.ok) {
-      throw new Error("Error en la respuesta de la red");
+      throw new Error("Error en la solicitud: " + respuesta.statusText);
     }
     return respuesta.json();
   })
