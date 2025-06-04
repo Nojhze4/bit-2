@@ -2,6 +2,11 @@
 
 const documento = document;
 const $raiz = documento.getElementById("root");
+const $loader = document.getElementById("loader");
+
+let estudiantesGlobal = [];
+let paginaActual = 1;
+const registrosPorPagina = 20;
 
 function crearTarjetaEstudiante(estudiante) {
   // Imagen y enlace GitHub
@@ -43,14 +48,44 @@ function crearTarjetaEstudiante(estudiante) {
   `;
 }
 
-function mostrarTarjetas(estudiantes) {
-  let tarjetas = '<div class="d-flex flex-wrap">';
-  estudiantes.forEach((estudiante) => {
-    tarjetas += crearTarjetaEstudiante(estudiante);
-  });
-  tarjetas += "</div>";
-  $raiz.innerHTML = tarjetas;
+function mostrarTarjetas(estudiantes, pagina = 1) {
+  if ($loader) $loader.style.display = "block";
+  $raiz.innerHTML = "";
+
+  setTimeout(() => {
+    let inicio = (pagina - 1) * registrosPorPagina;
+    let fin = inicio + registrosPorPagina;
+    let estudiantesPagina = estudiantes.slice(inicio, fin);
+
+    let tarjetas = '<div class="d-flex flex-wrap">';
+    estudiantesPagina.forEach((estudiante) => {
+      tarjetas += crearTarjetaEstudiante(estudiante);
+    });
+    tarjetas += "</div>";
+
+    $raiz.innerHTML = tarjetas + crearPaginacion(estudiantes.length, pagina);
+    if ($loader) $loader.style.display = "none";
+  }, 300);
 }
+
+function crearPaginacion(total, paginaActual) {
+  let totalPaginas = Math.ceil(total / registrosPorPagina);
+  if (totalPaginas <= 1) return "";
+
+  let paginacion = '<nav class="pagination" style="text-align:center;margin:20px 0;"><ul style="list-style:none;padding:0;">';
+  for (let i = 1; i <= totalPaginas; i++) {
+    paginacion += `<li style="display:inline;margin:0 5px;">
+      <button onclick="cambiarPagina(${i})" ${i === paginaActual ? "disabled" : ""}>${i}</button>
+    </li>`;
+  }
+  paginacion += "</ul></nav>";
+  return paginacion;
+}
+
+window.cambiarPagina = function(nuevaPagina) {
+  paginaActual = nuevaPagina;
+  mostrarTarjetas(estudiantesGlobal, paginaActual);
+};
 
 fetch("file.json")
   .then((respuesta) => {
@@ -60,7 +95,8 @@ fetch("file.json")
     return respuesta.json();
   })
   .then((datos) => {
-    mostrarTarjetas(datos);
+    estudiantesGlobal = datos;
+    mostrarTarjetas(estudiantesGlobal, paginaActual);
   })
   .catch((error) => {
     alert("Error: " + error);

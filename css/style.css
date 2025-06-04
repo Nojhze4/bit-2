@@ -1,5 +1,6 @@
-
 #root,
+
+
 .d-flex {
   display: flex;
   flex-wrap: wrap;
@@ -101,6 +102,13 @@ footer a {
   text-decoration: none;
 }
 
+#loader {
+  display: none;
+  text-align: center;
+  margin: 30px 0;
+  font-size: 1.3em;
+  color: #0056b3;
+}
 
 /*(≤575px) */
 @media (max-width: 575px) {
